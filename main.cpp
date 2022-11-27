@@ -1,21 +1,24 @@
 #include <iostream>
-#include "traders.h"
+#include "traders.cpp"
 #include "settings.cpp"
 
 void run() {
     SwingTrader swing(1000);
-    Stock eur("Euro", 10, 20);
+    Stock eur("Euro", 100,100);
     swing.positions.push_back(eur);
     unsigned int microsec = 100000;
-    double change;
 
     // TODO implement clock system
     // options : 10hz, 20hz, 100hz
 
+    Stock* currentStock;
     while (true) {
-        Stock currentStock = swing.positions[0];
-        currentStock.priceChange(change);
-        std::cout << "Current Price:\t\t\t\t\t\t\t" << currentStock.getCurrentPrice() << "\n\n\n\n\n\n\n\n\n\n\n";
+        currentStock = &swing.positions[0];
+        currentStock->updatePrice();
+        currentStock->update_events();
+        currentStock->update_market_direction();
+        std::cout << "Current Price:\t\t" << currentStock->getCurrentPrice() << '\n'; 
+        std::cout << "Current Volat:\t\t" << currentStock->getCurrentVolatility()  << "\n\n\n\n\n\n\n\n";
         usleep(microsec);
     }
     return;
