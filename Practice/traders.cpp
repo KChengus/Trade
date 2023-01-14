@@ -35,10 +35,13 @@ class SwingTrader : public Trader {
 
     private:
         // double open_pos_prob = 0.20;
+        
 };
 
 class DayTrader : public Trader{
-
+    void friend exit_trades(Trader);
+    public:
+        DayTrader(long equity) : Trader("Day", equity, 3, 10) {};
 };
 
 class FundamentalTrader : public Trader{
@@ -49,7 +52,7 @@ void exit_trades(Trader trader) {
     // Trader can be any of the other trade classes
     // this is an example of polymorphism
     for (Stock stock : trader.positions) {
-
+        
     }
 }
 

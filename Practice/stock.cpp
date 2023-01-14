@@ -14,9 +14,9 @@ struct MarketDirection {
     };
     // Long Term and Short Term
     bool isLTUpTr;
-    int lsMaxChange = 50; // 100 = 1% 
+    int lsMaxChange = 200; // 100 = 1% 
     bool isSTUpTr;
-    int stMaxChange = 80;
+    int stMaxChange = 300;
 
     int news[2] = {1, 0}; // news[direction, scale], scale = 0-100, 0 is no impact on market, 100 huge impact  
     // TODO implement scale to be normal distributed
@@ -113,7 +113,6 @@ void Stock::updatePrice() {
     int lowerBound  = -maxVolatility + mD.getTrendPerc(0);
 
     int higherBound =  maxVolatility + mD.getTrendPerc(1);
-    printf("LowerBound: %d HigherBound: %d\n", lowerBound, higherBound);
     curVolatility = generateRandVola(lowerBound, higherBound);
     double price = currentPrice + currentPrice*curVolatility;
     if (price100days.size() >= 100) {
@@ -133,7 +132,7 @@ void Stock::update_events() {
 }
 
 void Stock::update_market_direction() {
-    std::cout << "Current MarkD:\t\t" << mD.getCurMarketDir()  << '\n';
+    //std::cout << "Current MarkD:\t\t" << mD.getCurMarketDir()  << '\n';
 }
 
 #endif 
